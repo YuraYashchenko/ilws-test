@@ -18,6 +18,11 @@ class FilterController extends Controller
 
     public function filterByPeriod(Request $request)
     {
+        $this->validate($request, [
+                'from' => 'required|date',
+                'to' => 'required|date'
+            ]);
+
     	$from = Carbon::parse($request->from);
     	$to = Carbon::parse($request->to);
 
