@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Client;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,3 +14,5 @@
 */
 
 Route::resource('operations', 'OperationsController');
+
+Route::get('/filter', 'FilterController@filterByPeriod');

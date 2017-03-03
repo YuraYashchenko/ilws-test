@@ -5,9 +5,12 @@
   </head>
   <body>
     <div id="app">
+        
         @include('includes/_nav')
         
         <div class="container">
+          @include('includes._errors')
+
           @yield('content')
         </div>
     </div>

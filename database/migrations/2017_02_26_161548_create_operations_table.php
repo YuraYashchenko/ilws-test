@@ -17,7 +17,9 @@ class CreateOperationsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->enum('type', ['income', 'loss']);
-            $table->integer('amount');
+            $table->timestamp('date');
+            $table->integer('amount')->unsigned();
+            $table->integer('usd')->unsigned();
             $table->timestamps();
         });
     }

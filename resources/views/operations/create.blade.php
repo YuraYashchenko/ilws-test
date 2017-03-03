@@ -19,6 +19,11 @@
 				</div>
 
 				<div class="form-group">
+					<label for="amount">Date:</label>					
+					<input type="date" value="{{date('Y-m-d')}}" id="date" class="form-control" name="date">
+				</div>
+
+				<div class="form-group">
 					<label for="type">Type:</label>		
 
 					<select name="type" id="type">

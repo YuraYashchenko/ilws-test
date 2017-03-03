@@ -11201,6 +11201,7 @@ Vue.component('operations-table', __webpack_require__(36));
 
 var app = new Vue({
   el: '#app'
+
 });
 
 /***/ }),
@@ -12083,22 +12084,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['operations'],
 
     methods: {
         edit: function edit(id) {
-            window.location.pathname = 'operations/' + id + '/edit';
+            window.location.href = 'operations/' + id + '/edit';
         },
         destroy: function destroy(operation) {
             var _this = this;
 
-            var index = this.operations.indexOf(operation);
+            var index = this.operations.all.indexOf(operation);
 
             axios.delete('operations/' + operation.id).then(function () {
-                _this.operations.splice(index, 1);
-                window.location.pathname = '/operations';
+                _this.operations.all.splice(index, 1);
+
+                window.location.href = '/operations';
             });
         }
     }
@@ -12141,19 +12148,6 @@ window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
   'X-Requested-With': 'XMLHttpRequest'
 };
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from "laravel-echo"
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
 
 /***/ }),
 /* 32 */
@@ -31796,7 +31790,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-8 col-md-offset-2"
   }, [_c('table', {
     staticClass: "table"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.operations), function(operation) {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.operations.all), function(operation) {
     return _c('tr', [_c('td', {
       domProps: {
         "textContent": _vm._s(operation.title)
@@ -31807,11 +31801,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v(" "), _c('td', {
       domProps: {
-        "textContent": _vm._s(operation.amount)
+        "textContent": _vm._s(((operation.amount) + "UAH / " + (operation.usd) + "$"))
       }
     }), _vm._v(" "), _c('td', {
       domProps: {
-        "textContent": _vm._s(operation.created_at)
+        "textContent": _vm._s(operation.date)
       }
     }), _vm._v(" "), _c('button', {
       staticClass: "btn btn-success btn-sm",
@@ -31838,7 +31832,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-hidden": "true"
       }
     })])])
-  }))])])])
+  }))]), _vm._v(" "), _c('p', [_vm._v("Income: " + _vm._s(_vm.operations.income))]), _vm._v(" "), _c('p', [_vm._v("Loss: " + _vm._s(_vm.operations.loss))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Title")]), _vm._v(" "), _c('th', [_vm._v("Type")]), _vm._v(" "), _c('th', [_vm._v("Amount")]), _vm._v(" "), _c('th', [_vm._v("Date")])])])
 }]}

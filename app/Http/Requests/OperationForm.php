@@ -30,21 +30,30 @@ class OperationForm extends FormRequest
             'type' => [
                 'amount' => Rule::in(['income', 'loss'])
             ],
+            'date' => 'required|date',
             'amount' => 'required|numeric'
         ];
     }
 
-    public function createOperation()
+    public function createOperation($usd)
     {
         Operation::create([
                 'title' => $this->title,
                 'type' => $this->type,
-                'amount' => $this->amount
+                'date' => $this->date,
+                'amount' => $this->amount,
+                'usd' => round($this->amount / $usd, 2),
             ]);
     }
 
-    public function updateOperation(Operation $operation)
+    public function updateOperation(Operation $operation, $usd)
     {
-        $operation->update($this->all());
+        $operation->update([
+                'title' => $this->title,
+                'type' => $this->type,
+                'date' => $this->date,
+                'amount' => $this->amount,
+                'usd' => round($this->amount / $usd, 2),
+            ]);
     }
 }

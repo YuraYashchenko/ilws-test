@@ -18,6 +18,11 @@
 					<label for="amount">Amount:</label>					
 					<input type="text" id="amount" class="form-control" name="amount" value="{{ $operation->amount}}">
 				</div>
+				
+				<div class="form-group">
+					<label for="amount">Date:</label>					
+					<input type="date" id="date" class="form-control" name="date" value="{{ $operation->date}}">
+				</div>
 
 				<div class="form-group">
 					<label for="type">Type:</label>		

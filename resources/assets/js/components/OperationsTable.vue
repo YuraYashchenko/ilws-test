@@ -11,16 +11,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="operation in operations">
+                    <tr v-for="operation in operations.all">
                         <td v-text="operation.title"></td>
                         <td v-text="operation.type"></td>
-                        <td v-text="operation.amount"></td>
-                        <td v-text="operation.created_at"></td>
+                        <td v-text="`${operation.amount}UAH / ${operation.usd}$`"></td>
+                        <td v-text="operation.date"></td>
+
                         <button @click="edit(operation.id)" class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
                         <button @click="destroy(operation)" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </tr>
                 </tbody>
             </table>
+
+            <p>Income: {{ operations.income }}</p>
+            <p>Loss: {{ operations.loss }}</p>
         </div>
     </div>
 </template>
@@ -31,16 +36,17 @@
 
         methods: {
             edit(id) {
-                window.location.pathname = 'operations/' + id + '/edit';
+                window.location.href = 'operations/' + id + '/edit';
             },
 
             destroy(operation) {
-                let index = this.operations.indexOf(operation);
+                let index = this.operations.all.indexOf(operation);
 
-                axios.delete(`operations/${operation.id}`).
-                    then(() => {
-                        this.operations.splice(index, 1);
-                        window.location.pathname = '/operations'
+                axios.delete(`operations/${operation.id}`)
+                    .then(() => {
+                        this.operations.all.splice(index, 1);
+
+                        window.location.href = '/operations'
                     });
             }
         }

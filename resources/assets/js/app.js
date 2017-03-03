@@ -16,5 +16,6 @@ require('./bootstrap');
 Vue.component('operations-table', require('./components/OperationsTable.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
 });

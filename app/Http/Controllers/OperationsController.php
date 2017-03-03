@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Operation;
 use Illuminate\Http\Request;
 use App\Http\Requests\OperationForm;
+use App\Repositories\OperationRepository;
 
 class OperationsController extends Controller
 {
+    protected $repository;
+
+    public function __construct(OperationRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +23,10 @@ class OperationsController extends Controller
      */
     public function index()
     {
-        $operations = Operation::orderBy('created_at', 'desc')->get();
-
+        $operations = $this->repository->transform(
+                Operation::latest('date')
+            ); 
+        
         return view('operations.index', compact('operations'));
     }
 
@@ -38,7 +48,9 @@ class OperationsController extends Controller
      */
     public function store(OperationForm $form)
     {
-        $form->createOperation();
+        $usd = $this->repository->getUsd(); 
+
+        $form->createOperation($usd);
 
         return redirect()->route('operations.index');
     }
@@ -63,7 +75,9 @@ class OperationsController extends Controller
      */
     public function update(OperationForm $form, Operation $operation)
     {
-        $form->updateOperation($operation);
+        $usd = $this->repository->getUsd(); 
+
+        $form->updateOperation($operation, $usd);
 
         return redirect()->route('operations.index');
     }
